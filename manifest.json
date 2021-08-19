@@ -1,0 +1,26 @@
+{
+  "name": "Spotify Playback Speed",
+  "description": "Adds a button and menu to manipulate playback speed on Spotify Web.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "author": "@rnikko",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://open.spotify.com/*"],
+      "css": ["style.css"],
+      "js": ["content-script.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": ["https://open.spotify.com/*"],
+      "resources": [
+        "script.js",
+        "style.css"
+      ]
+    }
+  ]
+}
