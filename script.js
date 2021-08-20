@@ -87,6 +87,7 @@ const addControlPanel = () => {
   sliderInput.setAttribute('max', '200')
   sliderInput.oninput = () => { setValues() }
   sliderInput.value = localStorage.getItem('pb-settings-speed') || 100
+  setDisplayValue(sliderInput.value / 100)
 
   const sliderRightText = document.createElement('span')
   sliderRightText.style = 'line-height: 32px;'
@@ -142,13 +143,14 @@ const setValues = () => {
   spotifyPlaybackEl.playbackRate = pbSpeed / 100
   spotifyPlaybackEl.preservesPitch = pbPitch
 
-  setDisplayValue(pbSpeed / 100)
-  saveValues(pbSpeed, pbPitch)
-}
+  if (localStorage.getItem('pb-settings-speed') !== pbSpeed) {
+    setDisplayValue(pbSpeed / 100)
+    localStorage.setItem('pb-settings-speed', pbSpeed);
+  }
 
-const saveValues = (speed, pitch) => {
-  localStorage.setItem('pb-settings-speed', speed);
-  localStorage.setItem('pb-settings-prepitch', pitch);
+  if (getLastPitchSetting() !== pbPitch) {
+    localStorage.setItem('pb-settings-prepitch', pbPitch);
+  }
 }
 
 const setDisplayValue = (val) => {
