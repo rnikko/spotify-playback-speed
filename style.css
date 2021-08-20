@@ -1,8 +1,7 @@
 #pb-speed-control-panel {
-  display: none;
   width: 320px;
   position: absolute;
-  background: rgb(24 24 24);
+  background: rgb(24, 24, 24);
   border: 1px solid rgb(40, 40, 40);
   padding: 8px 0px;
 }

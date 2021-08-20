@@ -49,7 +49,7 @@ const addControlPanel = () => {
 
   const controlPanel = document.createElement('div')
   controlPanel.id = 'pb-speed-control-panel'
-  controlPanel.style = `bottom: ${bottomOffset}px;`
+  controlPanel.style = `display: none; bottom: ${bottomOffset}px;`
 
   const headerTextSpan = document.createElement('span')
   headerTextSpan.style = 'line-height: 32px; font-weight: 600;'
