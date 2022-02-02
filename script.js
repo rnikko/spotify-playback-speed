@@ -1,8 +1,8 @@
-const base = document.createElement
+const spsBase = document.createElement
 let spotifyPlaybackEl = null
 
 document.createElement = function (message) {
-  const element = base.apply(this, arguments)
+  const element = spsBase.apply(this, arguments)
   if (message == 'video' || message == 'audio') { spotifyPlaybackEl = element }
   return element
 }
