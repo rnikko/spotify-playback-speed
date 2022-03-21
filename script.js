@@ -38,9 +38,9 @@ const addButtonDisplay = () => {
   controlsWrapper.appendChild(controlsIcon)
   controlsWrapper.appendChild(controlsSpan)
 
-  document.getElementsByClassName('ExtraControls')[0].insertBefore(
+  document.getElementsByClassName('volume-bar')[0].parentElement.insertBefore(
     controlsWrapper,
-    document.getElementsByClassName('ExtraControls')[0].firstChild
+    document.getElementsByClassName('volume-bar')[0].parentElement.firstChild
   )
 }
 
@@ -133,7 +133,7 @@ const addControlPanel = () => {
   controlPanel.appendChild(controlPanelSlider)
   controlPanel.appendChild(controlPanelToggles)
 
-  document.getElementsByClassName('ExtraControls')[0].appendChild(controlPanel)
+  document.getElementsByClassName('volume-bar')[0].parentElement.appendChild(controlPanel)
 }
 
 const setValues = () => {
@@ -178,10 +178,13 @@ const toggleShowControlPanel = () => {
 
 const init = () =>  {
   try {
+    console.log('sps > adding buttons')
     addButtonDisplay()
     addControlPanel()
     setInterval(setValues, 500);
+    console.log('sps > successfully added buttons')
   } catch {
+    console.log('sps > failed to add buttons, retrying...')
     setTimeout(init, 100)
     return
   }
