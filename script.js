@@ -167,16 +167,23 @@ const resetSettings = () => {
   setValues()
 }
 
+function hideControlPanel(controlPanelElement){
+  controlPanelElement.style.display = 'none';
+  controlPanelElement.style.opacity = '0';
+  controlPanelElement.style.bottom = "0px";
+}
+
+function showControlPanel(controlPanelElement){
+  controlPanelElement.style.display = 'block';
+  controlPanelElement.style.bottom = document.getElementsByClassName('Root__now-playing-bar')[0].offsetHeight + 'px';
+  controlPanelElement.style.opacity = '1';
+}
 const toggleShowControlPanel = () => {
   const controlPanel = document.getElementById('pb-speed-control-panel');
   if (controlPanel.style.display === 'none') {
-    controlPanel.style.display = 'block';
-    controlPanel.style.bottom = document.getElementsByClassName('Root__now-playing-bar')[0].offsetHeight + 'px';
-    controlPanel.style.opacity = '1';
+    showControlPanel(controlPanel);
   } else {
-    controlPanel.style.display = 'none';
-    controlPanel.style.opacity = '0';
-    controlPanel.style.bottom = "0px";
+    hideControlPanel(controlPanel)
   }
 }
 
@@ -193,4 +200,9 @@ const init = () =>  {
 
 window.onload = () => {
   init()
+  document.addEventListener("click", e=> {if (e.target.id != "pb-speed-control-panel" && !document.getElementById("pb-speed-controls-wrapper").contains(e.target) && !document.getElementById("pb-speed-control-panel").contains(e.target)) {
+    hideControlPanel(document.getElementById('pb-speed-control-panel'))
+  }
+});
+
 };
