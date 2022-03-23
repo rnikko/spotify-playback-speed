@@ -49,7 +49,7 @@ const addControlPanel = () => {
 
   const controlPanel = document.createElement('div')
   controlPanel.id = 'pb-speed-control-panel'
-  controlPanel.style = `display: none; bottom: ${bottomOffset}px;`
+  controlPanel.style = `display: none; bottom: 0px;transition: 0.3s ease all;`
 
   const headerTextSpan = document.createElement('span')
   headerTextSpan.style = 'line-height: 32px; font-weight: 600;'
@@ -84,14 +84,14 @@ const addControlPanel = () => {
   sliderInput.id = 'pb-speed-slider'
   sliderInput.setAttribute('type', 'range')
   sliderInput.setAttribute('min', '50')
-  sliderInput.setAttribute('max', '200')
+  sliderInput.setAttribute('max', '400')
   sliderInput.oninput = () => { setValues() }
   sliderInput.value = localStorage.getItem('pb-settings-speed') || 100
   setDisplayValue(sliderInput.value / 100)
 
   const sliderRightText = document.createElement('span')
   sliderRightText.style = 'line-height: 32px;'
-  sliderRightText.innerHTML = '2.0x'
+  sliderRightText.innerHTML = '4.0x'
 
   const controlPanelSlider = document.createElement('div')
   controlPanelSlider.style = 'display: flex; margin: 6px 12px;'
@@ -171,20 +171,21 @@ const toggleShowControlPanel = () => {
   const controlPanel = document.getElementById('pb-speed-control-panel');
   if (controlPanel.style.display === 'none') {
     controlPanel.style.display = 'block';
+    controlPanel.style.bottom = document.getElementsByClassName('Root__now-playing-bar')[0].offsetHeight + 'px';
+    controlPanel.style.opacity = '1';
   } else {
     controlPanel.style.display = 'none';
+    controlPanel.style.opacity = '0';
+    controlPanel.style.bottom = "0px";
   }
 }
 
 const init = () =>  {
   try {
-    console.log('sps > adding buttons')
     addButtonDisplay()
     addControlPanel()
     setInterval(setValues, 500);
-    console.log('sps > successfully added buttons')
   } catch {
-    console.log('sps > failed to add buttons, retrying...')
     setTimeout(init, 100)
     return
   }
