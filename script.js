@@ -49,7 +49,7 @@ const addControlPanel = () => {
 
   const controlPanel = document.createElement('div')
   controlPanel.id = 'pb-speed-control-panel'
-  controlPanel.style = `display: none; bottom: 0px;transition: 0.3s ease all;`
+  controlPanel.style = `display: none; bottom: 0px;transition: 0.2s cubic-bezier(0.25, 0.1, 0.27, 1) all;`
 
   const headerTextSpan = document.createElement('span')
   headerTextSpan.style = 'line-height: 32px; font-weight: 600;'
@@ -168,7 +168,9 @@ const resetSettings = () => {
 }
 
 function hideControlPanel(controlPanelElement){
-  controlPanelElement.style.display = 'none';
+  setTimeout(() => {
+    controlPanelElement.style.display = 'none';
+  }, 200);
   controlPanelElement.style.opacity = '0';
   controlPanelElement.style.bottom = "0px";
 }
