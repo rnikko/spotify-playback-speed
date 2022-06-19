@@ -2,7 +2,7 @@
 
 ![promo-small.png](promo-small.png)
 
-This extensions provides an easy way to manipulate playback rate and pitch settings for Spotify Web.
+This extension provides an easy way to manipulate playback rate and pitch settings for Spotify Web.
 
 ### Requirements
 
@@ -13,15 +13,15 @@ This extensions provides an easy way to manipulate playback rate and pitch setti
 
 You don't need the source code if you want to just use the extension
 
-1. 	[Install from Chrome Web Store](https://chrome.google.com/webstore/detail/spotify-playback-speed/bgehnoihoklmofgehcefiaicdcdgppck?hl=en&authuser=0)
+1. 	[Install from Chrome Web Store](https://chrome.google.com/webstore/detail/spotify-playback-speed/bgehnoihoklmofgehcefiaicdcdgppck)
 2. 	Download latest release
 	*  Download latest release from Releases
-	*  Enable Developer Mode on 'Manage Extensions' page
-	*  Unarchive
-	*  Drag folder onto Chrome 'Manage Extensions' page
+	*  Enable Developer Mode on Chrome's 'Manage Extensions' page
+	*  Unarchive and drag folder onto 'Manage Extensions' page
 
 ### Screenshots
 
 ![Screenshot #1](screenshot1.png)
 ![Screenshot #2](screenshot2.png)
 ![Screenshot #3](screenshot3.png)
+![Screenshot #3](screenshot4.png)
