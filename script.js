@@ -273,8 +273,10 @@
     // set values
     setValues();
     setInterval(() => {
-      spotifyPlaybackEl.playbackRate = Number(sliderInput.value);
-      spotifyPlaybackEl.preservesPitch = ppCheckbox.checked;
+      if (spotifyPlaybackEl) {
+        spotifyPlaybackEl.playbackRate = Number(sliderInput.value);
+        spotifyPlaybackEl.preservesPitch = ppCheckbox.checked;
+      }
     }, 50);
   };
 
