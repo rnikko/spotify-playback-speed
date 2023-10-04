@@ -88,7 +88,7 @@
     } else {
       spsMain.style.display = 'none';
     }
-    document.querySelector('#sps-icon').classList.toggle('sps-icon-active')
+    document.querySelector('#sps-icon').classList.toggle('sps-icon-active');
     if (showSettings) {
       toggleShowSettings();
     }
@@ -100,8 +100,8 @@
   };
 
   const saveMinMax = () => {
-    sliderInput.min = minInput.value;
-    sliderInput.max = maxInput.value;
+    sliderInput.min = minInput.value !== '0' && minInput.value ? minInput.value : '0.5';
+    sliderInput.max = maxInput.value !== '0' && maxInput.value ? maxInput.value : '2';
     localStorage.setItem('sps-speed-min', minInput.value);
     localStorage.setItem('sps-speed-max', maxInput.value);
     sliderMin.innerHTML = `${Number(minInput.value) * 1}x`;
@@ -165,7 +165,9 @@
     appEl.appendChild(spsMain);
     appEl.appendChild(spsIcon);
 
-    const volumeBarContainer = document.querySelector('.volume-bar').parentNode;
+    const muteButton = document.querySelector('button[aria-describedby="volume-icon"]');
+    const volumeBarContainer = muteButton.parentNode.parentNode;
+
     volumeBarContainer.insertBefore(
       appEl,
       volumeBarContainer.firstChild,
@@ -211,10 +213,14 @@
 
     // init from storage
     if (localStorage.getItem('sps-speed')) {
-      lastSpeed = Number(localStorage.getItem('sps-speed'));
-      lastPp = JSON.parse(localStorage.getItem('sps-pp'));
-      lastMin = Number(localStorage.getItem('sps-speed-min'));
-      lastMax = Number(localStorage.getItem('sps-speed-max'));
+      lastSpeed = Number(localStorage.getItem('sps-speed')) || lastSpeed;
+      lastPp = JSON.parse(localStorage.getItem('sps-pp')) || lastPp;
+
+      const storedMin = Number(localStorage.getItem('sps-speed-min'));
+      lastMin = (storedMin && storedMin !== 0) ? storedMin : lastMin;
+
+      const storedMax = Number(localStorage.getItem('sps-speed-max'));
+      lastMax = (storedMax && storedMax !== 0) ? storedMax : lastMax;
     }
 
     oldMin = lastMin;
