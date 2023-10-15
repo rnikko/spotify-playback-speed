@@ -14,6 +14,7 @@
   let sliderInput;
   let sliderMin;
   let sliderMax;
+  let seekInput;
   let speedResetBtn;
 
   let settingsBtn;
@@ -77,6 +78,7 @@
 
     localStorage.setItem('sps-speed', val);
     localStorage.setItem('sps-pp', pp);
+    localStorage.setItem('sps-seek', seek);
     localStorage.setItem('sps-speed-min', min);
     localStorage.setItem('sps-speed-max', max);
 
@@ -120,6 +122,7 @@
     sliderInput.max = maxInput.value !== '0' && maxInput.value ? maxInput.value : '2';
     localStorage.setItem('sps-speed-min', minInput.value);
     localStorage.setItem('sps-speed-max', maxInput.value);
+    localStorage.setItem('sps-seek-amt', seekInput.value);
     sliderMin.innerHTML = `${Number(minInput.value) * 1}x`;
     sliderMax.innerHTML = `${Number(maxInput.value) * 1}x`;
     setValues();
@@ -233,6 +236,8 @@
     sliderInput = document.querySelector('input[name="sps-slider"]');
     sliderMin = document.querySelector('span#sps-speed-min');
     sliderMax = document.querySelector('span#sps-speed-max');
+    seekInput = document.querySelector('input[name="sps-seek-input"]');
+    
     speedResetBtn = document.querySelector('button#sps-reset-btn');
 
     settingsBtn = document.querySelector('#sps-settings-btn');
