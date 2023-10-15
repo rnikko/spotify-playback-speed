@@ -63,6 +63,13 @@
 #sps button:disabled{
   cursor:not-allowed
 }
+
+#sps input[type=number]{
+  border-radius:.125rem;
+  text-align:center;
+  font-size:.875rem;
+}
+
 #sps input[type=number]::-webkit-outer-spin-button,
 #sps input[type=number]::-webkit-inner-spin-button{
   -webkit-appearance:none;
