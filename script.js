@@ -26,6 +26,8 @@
   let maxInput;
   let resetMinmaxBtn;
   let saveMinmaxBtn;
+  let spsSeekButtonLeft;
+  let spsSeekButtonRight;
 
   let spsMain;
   let spsControls;
@@ -42,7 +44,7 @@
     return element;
   };
 
-  const setValues = () => {
+  const setValues = () => { // This might be initialization 
     const val = Number(sliderInput.value);
     const min = minInput.value;
     const max = maxInput.value;
@@ -84,6 +86,7 @@
 
     spotifyPlaybackEl.playbackRate = { source: 'sps', value: val };
     spotifyPlaybackEl.preservesPitch = pp;
+    spotifyPlaybackEl.currentTime = { source: 'sps', value: 4 }; //TESTING
   };
 
   let showSettings = false;
@@ -182,8 +185,8 @@
     spsMain.appendChild(spsSettings);
 
     const spsIcon = document.createElement('div');
-    const spsSeekButtonLeft = document.createElement('div');
-    const spsSeekButtonRight = document.createElement('div');
+    spsSeekButtonLeft = document.createElement('div');
+    spsSeekButtonRight = document.createElement('div');
     spsIcon.id = 'sps-icon';
     spsSeekButtonLeft.classList.add('sps-seek-button');
     spsSeekButtonRight.classList.add('sps-seek-button');
@@ -331,8 +334,17 @@
     };
     seekButton.onclick = () => {
         seekCheckbox.checked = !seekCheckbox.checked;
-        setValues()
+        setValues() //TODO: add arguements to be able to change the value of seek or pp
     };
+
+    spsSeekButtonLeft.onclick = () => {
+      setValues() //TODO: add arguements to be able to change the value of seek or pp
+    };
+
+    spsSeekButtonRight.onclick = () => {
+      setValues()
+    }
+
 
     // Allow only {source: this_extension, value: number} type of objects to
     // be set in playbackRate
@@ -340,14 +352,31 @@
       const playbackRateDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'playbackRate');
       Object.defineProperty(HTMLMediaElement.prototype, 'playbackRate', {
         set(value) {
+          console.log(value, value.source)
           if (value.source !== 'sps') {
             console.info('sps⚠️ prevented unintended playback speed change');
             playbackRateDescriptor.set.call(this, Number(sliderInput.value));
           } else {
-            playbackRateDescriptor.set.call(this, value.value);
+            playbackRateDescriptor.set.call(this, value.value); //it defaults to 1
           }
         },
       });
+
+      const currentTimeDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'currentTime');
+      Object.defineProperty(HTMLMediaElement.prototype, 'currentTime', {
+        set(value) {
+          console.log(value, "sps🕒")
+            if (value.source !== 'sps') {
+              // console.info('sps⚠️ prevented unintended playback speed change');
+              currentTimeDescriptor.set.call(this, value);
+            } else {
+              //TODO: Add direction to the thing
+              console.log("setting it",document.querySelector('[data-test-position').attributes["data-test-position"])
+              currentTimeDescriptor.set.call(this, value.value + 1);
+            }
+        }
+      });
+
     }
 
     setValues();
