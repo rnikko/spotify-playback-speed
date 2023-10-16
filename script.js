@@ -44,7 +44,7 @@
     return element;
   };
 
-  const setValues = () => { // This might be initialization 
+  const setValues = (action) => { // This might be initialization 
     const val = Number(sliderInput.value);
     const min = minInput.value;
     const max = maxInput.value;
@@ -86,7 +86,10 @@
 
     spotifyPlaybackEl.playbackRate = { source: 'sps', value: val };
     spotifyPlaybackEl.preservesPitch = pp;
-    spotifyPlaybackEl.currentTime = { source: 'sps', value: 4 }; //TESTING
+
+    if (action && action.action === "seek"){
+      spotifyPlaybackEl.currentTime = { source: 'sps', value: action.seekValue }; //TESTING
+    }
   };
 
   let showSettings = false;
@@ -338,11 +341,11 @@
     };
 
     spsSeekButtonLeft.onclick = () => {
-      setValues() //TODO: add arguements to be able to change the value of seek or pp
+      setValues({action: "seek", seekValue: -1}) //TODO: add arguements to be able to change the value of seek or pp
     };
 
     spsSeekButtonRight.onclick = () => {
-      setValues()
+      setValues({action: "seek", seekValue: 1})
     }
 
 
@@ -371,8 +374,9 @@
               currentTimeDescriptor.set.call(this, value);
             } else {
               //TODO: Add direction to the thing
-              console.log("setting it",document.querySelector('[data-test-position').attributes["data-test-position"])
-              currentTimeDescriptor.set.call(this, value.value + 1);
+              console.log("setting it",document.querySelector('[data-test-position').attributes["data-test-position"], value.value)
+              const currentTime = document.querySelector('[data-test-position').attributes["data-test-position"].value / 1000; //TODO make sure this is correct
+              currentTimeDescriptor.set.call(this, currentTime + value.value);
             }
         }
       });
