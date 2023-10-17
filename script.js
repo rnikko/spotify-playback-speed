@@ -70,12 +70,18 @@
       seekButton.classList.add('sps-icon-active');
       seekButton.classList.remove('sps-hover-white');
       seekOffPath.style.display = 'none';
-      seekOnPath.style.display = 'block'
+      seekOnPath.style.display = 'block';
+
+      spsSeekButtonLeft.style.display = 'block';
+      spsSeekButtonRight.style.display = 'block';
     } else {
       seekButton.classList.remove('sps-icon-active');
       seekButton.classList.add('sps-hover-white');
       seekOffPath.style.display = 'block';
-      seekOnPath.style.display = 'none'
+      seekOnPath.style.display = 'none';
+
+      spsSeekButtonLeft.style.display = 'none';
+      spsSeekButtonRight.style.display = 'none';
     }
 
     localStorage.setItem('sps-speed', val);
