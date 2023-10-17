@@ -88,12 +88,13 @@
     spotifyPlaybackEl.preservesPitch = pp;
 
     if (action && action.action === "seek"){
-      spotifyPlaybackEl.currentTime = { source: 'sps', value: action.seekValue }; //TESTING
+      spotifyPlaybackEl.currentTime = { source: 'sps', value: action.seekValue };
     }
   };
 
   let showSettings = false;
   let showMain = false;
+
   const toggleShowSettings = () => {
     showSettings = !showSettings;
     if (showSettings) {
@@ -131,6 +132,14 @@
     localStorage.setItem('sps-seek-amt', seekInput.value);
     sliderMin.innerHTML = `${Number(minInput.value) * 1}x`;
     sliderMax.innerHTML = `${Number(maxInput.value) * 1}x`;
+
+    spsSeekButtonLeft.onclick = () => {
+      setValues({action: "seek", seekValue: Number(seekInput.value) * -1});
+    }
+    spsSeekButtonRight.onclick = () => {
+      setValues({action: "seek", seekValue: Number(seekInput.value)});
+    }
+
     setValues();
     toggleShowSettings();
   };
@@ -266,6 +275,7 @@
     let lastPp = true;
     let lastMin = 0.5;
     let lastMax = 2;
+    let seekAmt = localStorage.getItem('sps-seek-amt') ? localStorage.getItem('sps-seek-amt') : 1;
 
     // init from storage
     if (localStorage.getItem('sps-speed')) {
@@ -337,15 +347,15 @@
     };
     seekButton.onclick = () => {
         seekCheckbox.checked = !seekCheckbox.checked;
-        setValues() //TODO: add arguements to be able to change the value of seek or pp
+        setValues();
     };
 
     spsSeekButtonLeft.onclick = () => {
-      setValues({action: "seek", seekValue: -1}) //TODO: add arguements to be able to change the value of seek or pp
+      setValues({action: "seek", seekValue: seekAmt * -1});
     };
 
     spsSeekButtonRight.onclick = () => {
-      setValues({action: "seek", seekValue: 1})
+      setValues({action: "seek", seekValue: seekAmt});
     }
 
 
@@ -355,7 +365,7 @@
       const playbackRateDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'playbackRate');
       Object.defineProperty(HTMLMediaElement.prototype, 'playbackRate', {
         set(value) {
-          console.log(value, value.source)
+          console.log(value, value.source, "pp")
           if (value.source !== 'sps') {
             console.info('sps⚠️ prevented unintended playback speed change');
             playbackRateDescriptor.set.call(this, Number(sliderInput.value));
