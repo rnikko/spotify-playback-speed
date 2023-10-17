@@ -86,7 +86,7 @@
 
     localStorage.setItem('sps-speed', val);
     localStorage.setItem('sps-pp', pp);
-    localStorage.setItem('sps-seek', seek);
+    localStorage.setItem('sps-seek-toggle', seek);
     localStorage.setItem('sps-speed-min', min);
     localStorage.setItem('sps-speed-max', max);
 
@@ -269,7 +269,6 @@
     resetMinmaxBtn = document.querySelector('button#sps-minmax-reset');
     saveMinmaxBtn = document.querySelector('button#sps-minmax-save');
 
-    seekToggle = document.querySelector('input[name="sps-seek-toggle"]');
     spsMain = document.querySelector('#sps-main');
     spsControls = document.querySelector('#sps-controls');
     spsSettings = document.querySelector('#sps-settings');
@@ -297,6 +296,7 @@
     oldMin = lastMin;
     oldMax = lastMax;
     ppCheckbox.checked = lastPp;
+    seekCheckbox.checked = localStorage.getItem('sps-seek-toggle') ? localStorage.getItem('sps-seek-toggle') === "true" : false;
     sliderInput.value = lastSpeed;
     sliderInput.min = lastMin;
     sliderInput.max = lastMax;
@@ -306,6 +306,7 @@
     sliderMax.innerHTML = `${lastMax}x`;
     sliderInput.oninput = setValues;
     ppCheckbox.oninput = setValues;
+    seekButton.oninput = setValues;
     minInput.onchange = (e) => {
       let newVal = Number(e.target.value);
       if (newVal >= oldMax) {
@@ -352,8 +353,8 @@
       setValues();
     };
     seekButton.onclick = () => {
-        seekCheckbox.checked = !seekCheckbox.checked;
-        setValues();
+      seekCheckbox.checked = !seekCheckbox.checked;
+      setValues();
     };
 
     spsSeekButtonLeft.onclick = () => {
