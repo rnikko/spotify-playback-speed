@@ -94,6 +94,7 @@
     spotifyPlaybackEl.preservesPitch = pp;
 
     if (action && action.action === "seek"){
+      seekInput.value = action.seekValue;
       spotifyPlaybackEl.currentTime = { source: 'sps', value: action.seekValue };
     }
   };
@@ -298,6 +299,7 @@
     ppCheckbox.checked = lastPp;
     seekCheckbox.checked = localStorage.getItem('sps-seek-toggle') ? localStorage.getItem('sps-seek-toggle') === "true" : false;
     sliderInput.value = lastSpeed;
+    seekInput.value = seekAmt;
     sliderInput.min = lastMin;
     sliderInput.max = lastMax;
     minInput.value = lastMin;
