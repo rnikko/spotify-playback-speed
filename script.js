@@ -15,6 +15,7 @@
   let sliderMin;
   let sliderMax;
   let seekInput;
+  let seekText;
   let speedResetBtn;
 
   let settingsBtn;
@@ -147,6 +148,9 @@
       setValues({action: "seek", seekValue: Number(seekInput.value)});
     }
 
+    seekText[0].innerHTML = `${seekInput.value}`;
+    seekText[1].innerHTML = `${seekInput.value}`;
+
     setValues();
     toggleShowSettings();
   };
@@ -213,8 +217,8 @@
     spsIcon.innerHTML = '<svg preserveAspectRatio="xMidYMid meet" width="2rem" height="2rem" viewBox="0 0 24 24" fill="currentColor" style="padding: 0.375rem;"><path d="M13 2.05v2c4.39.54 7.5 4.53 6.96 8.92c-.46 3.64-3.32 6.53-6.96 6.96v2c5.5-.55 9.5-5.43 8.95-10.93c-.45-4.75-4.22-8.5-8.95-8.97v.02M5.67 19.74A9.994 9.994 0 0 0 11 22v-2a8.002 8.002 0 0 1-3.9-1.63l-1.43 1.37m1.43-14c1.12-.9 2.47-1.48 3.9-1.68v-2c-1.95.19-3.81.94-5.33 2.2L7.1 5.74M5.69 7.1L4.26 5.67A9.885 9.885 0 0 0 2.05 11h2c.19-1.42.75-2.77 1.64-3.9M4.06 13h-2c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8.002 8.002 0 0 1 4.06 13M10 16.5l6-4.5l-6-4.5v9z" fill="currentColor"></path></svg><span id="sps-icon-text" style="margin-top: -0.125rem; font-size: 0.6875rem;">1.00x</span>';
 
     //change from svg path to <text> for the amount of seconds and have it set by a function in setValue()
-    spsSeekButtonLeft.innerHTML= '<svg role="img" height="16" width="16" aria-hidden="true" viewBox="0 0 16 16" data-encore-id="icon" class="Svg-sc-ytk21e-0 haNxPq"><path d="M13.536 4.5h-1.473a.75.75 0 1 0 0 1.5H16V2.063a.75.75 0 0 0-1.5 0v1.27A8.25 8.25 0 1 0 3.962 15.887a.75.75 0 1 0 .827-1.25A6.75 6.75 0 1 1 13.535 4.5z"></path><path d="M6.303 8.407c.79 0 1.214-.52 1.214-.907h1.5v8h-1.5V9.907H6v-1.5h.303zm4.832-.911h4.05v1.5H12.33l-.245 1.067c.256-.071.525-.11.804-.11 1.621 0 2.954 1.3 2.954 2.924 0 1.624-1.333 2.923-2.954 2.923a2.945 2.945 0 0 1-2.93-2.54l1.487-.197c.092.69.696 1.237 1.443 1.237.813 0 1.454-.647 1.454-1.423s-.64-1.423-1.454-1.423c-.49 0-.92.235-1.183.594l-.01.014-.206.254-1.314-.639.96-4.181z"></path></svg>';
-    spsSeekButtonRight.innerHTML= '<svg role="img" height="16" width="16" aria-hidden="true" viewBox="0 0 16 16" data-encore-id="icon" class="Svg-sc-ytk21e-0 haNxPq"><path d="M13.536 4.5h-1.473a.75.75 0 1 0 0 1.5H16V2.063a.75.75 0 0 0-1.5 0v1.27A8.25 8.25 0 1 0 3.962 15.887a.75.75 0 1 0 .827-1.25A6.75 6.75 0 1 1 13.535 4.5z"></path><path d="M6.303 8.407c.79 0 1.214-.52 1.214-.907h1.5v8h-1.5V9.907H6v-1.5h.303zm4.832-.911h4.05v1.5H12.33l-.245 1.067c.256-.071.525-.11.804-.11 1.621 0 2.954 1.3 2.954 2.924 0 1.624-1.333 2.923-2.954 2.923a2.945 2.945 0 0 1-2.93-2.54l1.487-.197c.092.69.696 1.237 1.443 1.237.813 0 1.454-.647 1.454-1.423s-.64-1.423-1.454-1.423c-.49 0-.92.235-1.183.594l-.01.014-.206.254-1.314-.639.96-4.181z"></path></svg>';
+    spsSeekButtonLeft.innerHTML= '<svg role="img" height="20" width="20" aria-hidden="true" viewBox="-2 -2 20 20" data-encore-id="icon" class="Svg-sc-ytk21e-0 haNxPq"><path d="M13.536 4.5h-1.473a.75.75 0 1 0 0 1.5H16V2.063a.75.75 0 0 0-1.5 0v1.27A8.25 8.25 0 1 0 3.962 15.887a.75.75 0 1 0 .827-1.25A6.75 6.75 0 1 1 13.535 4.5z"></path><text class="sps-seek-txt" x="6" y="16">15</text></svg>';
+    spsSeekButtonRight.innerHTML= '<svg role="img" height="20" width="20" aria-hidden="true" viewBox="-2 -2 20 20" data-encore-id="icon" class="Svg-sc-ytk21e-0 haNxPq"><path d="M13.536 4.5h-1.473a.75.75 0 1 0 0 1.5H16V2.063a.75.75 0 0 0-1.5 0v1.27A8.25 8.25 0 1 0 3.962 15.887a.75.75 0 1 0 .827-1.25A6.75 6.75 0 1 1 13.535 4.5z"></path><text class="sps-seek-txt" x="6" y="16">15</text></svg>';
 
     const appEl = document.createElement('div');
     appEl.id = 'sps';
@@ -240,7 +244,7 @@
   };
   const addStyle = () => {
     const style = document.createElement('style');
-    style.textContent = '#sps{user-select:none;border-width:0 !important;border-style:solid !important;border-color:#e5e7eb}.sps-common{display:flex;flex-wrap:nowrap;align-items:center;height:32px}.sps-header{color:#f0f0f0;font-weight:600;line-height:1}#sps-main{border:1px solid #282828;border-right:0;bottom:90px;right:0;position:absolute}#sps-icon{display:flex;flex-wrap:wrap;justify-content:center;width:2rem;height:2rem}#sps-controls{padding:.5rem .75rem;background-color:#171717;width:320px}#sps-settings{width:240px;padding:.5rem .75rem;background-color:#171717}#sps-settings input{margin-left:.5rem;width:56px;border-radius:.125rem;padding-left:.125rem;padding-right:.125rem;text-align:center;font-size:.875rem}.sps-text-button:hover{background-color:#9B9B9B;cursor:pointer}#sps button:hover{cursor:pointer}#sps button,#sps input{border-width:0 !important;border-style:solid !important;border-color:#e5e7eb}#sps button:disabled{cursor:not-allowed}#sps input[type=number]{border-radius:.125rem;text-align:center;font-size:.875rem;}#sps input[type=number]::-webkit-outer-spin-button,#sps input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}#sps input[type=number]:focus{outline:0}#sps input[type=range]{-webkit-appearance:none;width:100%;height:6px;background:#494949;border-radius:.375rem;background-image:linear-gradient(#fff,#fff);background-size:70% 100%;background-repeat:no-repeat}#sps input[type=range]:hover{background-image:linear-gradient(#2edb64,#2edb64)}#sps input[type=range]::-webkit-slider-thumb{-webkit-appearance:none}#sps input[type=range]::-webkit-slider-runnable-track{width:calc(100% + 16px);height:6px;padding:8px 0;background:transparent}#sps input[type=range]:hover::-webkit-slider-runnable-track{cursor:ew-resize}#sps input[type=range]:hover::-webkit-slider-thumb{display:block;cursor:ew-resize}#sps input[type=range]::-webkit-slider-thumb{display:none;-webkit-appearance:none;border-radius:50%;height:14px;width:14px;background:white;box-shadow:0 4px 6px -1px rgb(0 0 0 / .1),0 2px 4px -2px rgb(0 0 0 / .1);margin-top:-7px}.sps-icon-active,.sps-icon-active:hover{color:#2edb64!important}.sps-hover-white:hover{color:#FFF}.sps-text-button{background-color:#535353;color:white;font-weight:600;font-size:.625rem;padding:.125rem .25rem;border-radius:.125rem}';
+    style.textContent = '#sps{user-select:none;border-width:0 !important;border-style:solid !important;border-color:#e5e7eb}.sps-common{display:flex;flex-wrap:nowrap;align-items:center;height:32px}.sps-header{color:#f0f0f0;font-weight:600;line-height:1}#sps-main{border:1px solid #282828;border-right:0;bottom:90px;right:0;position:absolute}#sps-icon{display:flex;flex-wrap:wrap;justify-content:center;width:2rem;height:2rem}#sps-controls{padding:.5rem .75rem;background-color:#171717;width:320px}#sps-settings{width:240px;padding:.5rem .75rem;background-color:#171717}#sps-settings input{margin-left:.5rem;width:56px;border-radius:.125rem;padding-left:.125rem;padding-right:.125rem;text-align:center;font-size:.875rem}.sps-text-button:hover{background-color:#9B9B9B;cursor:pointer}#sps button:hover{cursor:pointer}#sps button,#sps input{border-width:0 !important;border-style:solid !important;border-color:#e5e7eb}#sps button:disabled{cursor:not-allowed}#sps input[type=number]{border-radius:.125rem;text-align:center;font-size:.875rem;}#sps input[type=number]::-webkit-outer-spin-button,#sps input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}#sps input[type=number]:focus{outline:0}#sps input[type=range]{-webkit-appearance:none;width:100%;height:6px;background:#494949;border-radius:.375rem;background-image:linear-gradient(#fff,#fff);background-size:70% 100%;background-repeat:no-repeat}#sps input[type=range]:hover{background-image:linear-gradient(#2edb64,#2edb64)}#sps input[type=range]::-webkit-slider-thumb{-webkit-appearance:none}#sps input[type=range]::-webkit-slider-runnable-track{width:calc(100% + 16px);height:6px;padding:8px 0;background:transparent}#sps input[type=range]:hover::-webkit-slider-runnable-track{cursor:ew-resize}#sps input[type=range]:hover::-webkit-slider-thumb{display:block;cursor:ew-resize}#sps input[type=range]::-webkit-slider-thumb{display:none;-webkit-appearance:none;border-radius:50%;height:14px;width:14px;background:white;box-shadow:0 4px 6px -1px rgb(0 0 0 / .1),0 2px 4px -2px rgb(0 0 0 / .1);margin-top:-7px}.sps-icon-active,.sps-icon-active:hover{color:#2edb64!important}.sps-hover-white:hover{color:#FFF}.sps-text-button{background-color:#535353;color:white;font-weight:600;font-size:.625rem;padding:.125rem .25rem;border-radius:.125rem}text{font-size: .625rem;}';
     document.head.append(style);
   };
 
@@ -259,7 +263,8 @@
     sliderMin = document.querySelector('span#sps-speed-min');
     sliderMax = document.querySelector('span#sps-speed-max');
     seekInput = document.querySelector('input[name="sps-seek-input"]');
-    
+    seekText = document.querySelectorAll('text.sps-seek-txt');
+
     speedResetBtn = document.querySelector('button#sps-reset-btn');
 
     settingsBtn = document.querySelector('#sps-settings-btn');
@@ -306,6 +311,8 @@
     maxInput.value = lastMax;
     sliderMin.innerHTML = `${lastMin}x`;
     sliderMax.innerHTML = `${lastMax}x`;
+    seekText[0].innerHTML = `${seekAmt}`;
+    seekText[1].innerHTML = `${seekAmt}`;
     sliderInput.oninput = setValues;
     ppCheckbox.oninput = setValues;
     seekButton.oninput = setValues;
