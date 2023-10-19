@@ -97,7 +97,7 @@
     spotifyPlaybackEl.preservesPitch = pp;
 
     if (action && action.action === "seek"){
-      seekInput.value = action.seekValue;
+      seekInput.value = Math.abs(action.seekValue);
       spotifyPlaybackEl.currentTime = { source: 'sps', value: action.seekValue };
     }
   };
@@ -286,7 +286,7 @@
     let lastPp = true;
     let lastMin = 0.5;
     let lastMax = 2;
-    let seekAmt = localStorage.getItem('sps-seek-amt') ? localStorage.getItem('sps-seek-amt') : 1;
+    let seekAmt = localStorage.getItem('sps-seek-amt') ? Number(localStorage.getItem('sps-seek-amt')) : 1;
 
     // init from storage
     if (localStorage.getItem('sps-speed')) {
