@@ -396,12 +396,10 @@
         set(value) {
           console.log(value, "sps🕒")
             if (value.source !== 'sps') {
-              // console.info('sps⚠️ prevented unintended playback speed change');
               currentTimeDescriptor.set.call(this, value);
             } else {
-              //TODO: Add direction to the thing
               console.log("setting it",document.querySelector('[data-test-position').attributes["data-test-position"], value.value)
-              const currentTime = document.querySelector('[data-test-position').attributes["data-test-position"].value / 1000; //TODO make sure this is correct
+              const currentTime = document.querySelector('[data-test-position').attributes["data-test-position"].value / 1000;
               currentTimeDescriptor.set.call(this, currentTime + value.value);
             }
         }
