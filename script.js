@@ -1,6 +1,5 @@
 // Spotify Playback Speed || 2022 Github-@rnikko
 
-//TODO regression test everything
 (() => {
   const base = document.createElement;
   let spotifyPlaybackEl;
@@ -47,7 +46,7 @@
     return element;
   };
 
-  const setValues = (action) => { // This might be initialization 
+  const setValues = (action) => {
     const val = Number(sliderInput.value);
     const min = minInput.value;
     const max = maxInput.value;
@@ -225,7 +224,6 @@
     appEl.appendChild(spsMain);
     appEl.appendChild(spsIcon);
 
-    // appEl.appendChild(spsSeekButton); //not appending to correct thing rn
     const muteButton = document.querySelector('button[aria-describedby="volume-icon"]');
     const leftPlayButtons = document.querySelector('.player-controls__left');
     const rightPlayButtons = document.querySelector('.player-controls__right');
@@ -286,7 +284,7 @@
     let lastPp = true;
     let lastMin = 0.5;
     let lastMax = 2;
-    let seekAmt = localStorage.getItem('sps-seek-amt') ? Number(localStorage.getItem('sps-seek-amt')) : 1;
+    let seekAmt = localStorage.getItem('sps-seek-amt') ? Number(localStorage.getItem('sps-seek-amt')) : 5;
 
     // init from storage
     if (localStorage.getItem('sps-speed')) {
@@ -381,7 +379,6 @@
       const playbackRateDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'playbackRate');
       Object.defineProperty(HTMLMediaElement.prototype, 'playbackRate', {
         set(value) {
-          console.log(value, value.source, "pp")
           if (value.source !== 'sps') {
             console.info('sps⚠️ prevented unintended playback speed change');
             playbackRateDescriptor.set.call(this, Number(sliderInput.value));
@@ -394,11 +391,9 @@
       const currentTimeDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'currentTime');
       Object.defineProperty(HTMLMediaElement.prototype, 'currentTime', {
         set(value) {
-          console.log(value, "sps🕒")
             if (value.source !== 'sps') {
               currentTimeDescriptor.set.call(this, value);
             } else {
-              console.log("setting it",document.querySelector('[data-test-position').attributes["data-test-position"], value.value)
               const currentTime = document.querySelector('[data-test-position').attributes["data-test-position"].value / 1000;
               currentTimeDescriptor.set.call(this, currentTime + value.value);
             }
