@@ -1,4 +1,4 @@
-// Spotify Playback Speed || 2022 Github-@rnikko
+// Spotify Playback Speed 1.12 || 2025 Github-@rnikko
 (() => {
   const base = document.createElement;
   let spotifyPlaybackEl;
@@ -301,6 +301,27 @@
     }
 
     setValues();
+
+    // nowPlaying+QueueSidebarFix
+    const updateMainRightPadding = () => {
+      const nowPlayingElement = document.getElementById('Desktop_PanelContainer_Id');
+      const mainElement = document.getElementById('sps-main');
+      
+      if (!mainElement) return;
+      
+      if (nowPlayingElement) {
+        const width = nowPlayingElement.offsetWidth;
+        mainElement.style.right = `${width + 16}px`;
+      } else {
+        mainElement.style.right = '';
+      }
+    };
+
+    updateMainRightPadding();
+    const observer = new MutationObserver(() => {
+      updateMainRightPadding();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   };
 
   let tries = 0;
