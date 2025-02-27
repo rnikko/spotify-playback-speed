@@ -213,8 +213,8 @@
 
     // init from storage
     if (localStorage.getItem('sps-speed')) {
-      lastSpeed = Number(localStorage.getItem('sps-speed')) || lastSpeed;
-      lastPp = JSON.parse(localStorage.getItem('sps-pp')) || lastPp;
+      lastSpeed = Number(localStorage.getItem('sps-speed') ?? lastSpeed);
+      lastPp = localStorage.getItem('sps-pp') ? JSON.parse(localStorage.getItem('sps-pp')) : lastPp;
 
       const storedMin = Number(localStorage.getItem('sps-speed-min'));
       lastMin = (storedMin && storedMin !== 0) ? storedMin : lastMin;
