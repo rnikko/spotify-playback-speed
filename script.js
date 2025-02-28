@@ -1,7 +1,7 @@
 // Spotify Playback Speed 1.12 || 2025 Github-@rnikko
 (() => {
   const base = document.createElement;
-  let spotifyPlaybackEl;
+  let spotifyPlaybackEls = [];
 
   let ppCheckbox;
   let ppButton;
@@ -30,10 +30,27 @@
   let icon;
   let iconSpan;
 
+  const playbackRateDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'playbackRate');
+  Object.defineProperty(HTMLMediaElement.prototype, 'playbackRate', {
+    set(value) {
+      if (this.parentElement?.className.toLowerCase().includes('canvas')) {
+        playbackRateDescriptor.set.call(this, 1);
+        return;
+      }
+
+      if (value.source !== 'sps') {
+        console.info('sps⚠️ prevented unintended playback speed change');
+        playbackRateDescriptor.set.call(this, Number(sliderInput.value));
+      } else {
+        playbackRateDescriptor.set.call(this, value.value);
+      }
+    },
+  });
+
   document.createElement = function (tagName) {
     const element = base.apply(this, arguments);
     if (tagName === 'video' || tagName === 'audio') {
-      spotifyPlaybackEl = element;
+      spotifyPlaybackEls.push(element);
     }
     return element;
   };
@@ -64,8 +81,10 @@
     localStorage.setItem('sps-speed-min', min);
     localStorage.setItem('sps-speed-max', max);
 
-    spotifyPlaybackEl.playbackRate = { source: 'sps', value: val };
-    spotifyPlaybackEl.preservesPitch = pp;
+    spotifyPlaybackEls.forEach((el) => {
+      el.playbackRate = { source: 'sps', value: val };
+      el.preservesPitch = pp;
+    });
   };
 
   let showSettings = false;
@@ -283,22 +302,6 @@
       ppCheckbox.checked = !ppCheckbox.checked;
       setValues();
     };
-
-    // Allow only {source: this_extension, value: number} type of objects to
-    // be set in playbackRate
-    if (spotifyPlaybackEl instanceof HTMLMediaElement) {
-      const playbackRateDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'playbackRate');
-      Object.defineProperty(HTMLMediaElement.prototype, 'playbackRate', {
-        set(value) {
-          if (value.source !== 'sps') {
-            console.info('sps⚠️ prevented unintended playback speed change');
-            playbackRateDescriptor.set.call(this, Number(sliderInput.value));
-          } else {
-            playbackRateDescriptor.set.call(this, value.value);
-          }
-        },
-      });
-    }
 
     setValues();
 
