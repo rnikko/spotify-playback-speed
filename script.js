@@ -1,4 +1,4 @@
-// Spotify Playback Speed 1.12 || 2025 Github-@rnikko
+// Spotify Playback Speed 1.13 || 2025 Github-@rnikko
 (() => {
   const base = document.createElement;
   let spotifyPlaybackEls = [];
